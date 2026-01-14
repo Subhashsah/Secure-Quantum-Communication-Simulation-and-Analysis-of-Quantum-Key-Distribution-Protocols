@@ -10,6 +10,6 @@ def simulate():
         n=int(data["bits"]),
         depolar_prob=float(data["noise"]),
         eve_prob=float(data["eve"]),
-        seed=42
+        # seed=42
     )
     return jsonify(result)
