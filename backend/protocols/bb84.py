@@ -47,7 +47,7 @@ def run_shot(qc, sim, seed):
 
 def simulate_bb84(n, depolar_prob, eve_prob, seed=None):
 
-    # ✅ Fix Python & NumPy randomness
+   
     if seed is not None:
         random.seed(seed)
         np.random.seed(seed)
@@ -60,7 +60,7 @@ def simulate_bb84(n, depolar_prob, eve_prob, seed=None):
     # Noise model
     noise_model = build_depolarizing_noise(depolar_prob) if depolar_prob > 0 else None
 
-    # ✅ ONE simulator per simulation (CRITICAL FIX)
+    #ONE simulator per simulation 
     sim = AerSimulator(
         noise_model=noise_model,
         seed_simulator=seed
