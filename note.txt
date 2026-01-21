@@ -1,0 +1,335 @@
+BB84:
+Uses two bases: Z-basis and X-basis
+Each basis encodes both bits 0 and 1
+
+Z-basis(Rectiliner/Computational)
+bit 0 ---> |0> , Horizontal ()
+bit 1 ---> |1> , Vertical ()
+
+X-Basis (Diagonal)
+Bit 0 ---> |+> , 45
+Bit 0 ---> |-> , 135
+
+Note: only bits where alice and bob usue the same bases are kept is shifted key
+- if Bob's bits is differ from alice original bit, after neglecting(bases which is not matching) is counted as an error
+
+quber = (error/shifted)*100
+
+Noise Model:
+In real quantum sytem:
+ - qubits interact with enviroments
+ - gates are imperfect
+ - Measurements are noisy
+
+ A noise model simulated these real-world imperfection
+
+ “In the real BB84 protocol, Alice and Bob cannot identify whether a particular error is due to noise or eavesdropping; they only observe the total QBER. In our simulation, we introduce noise and Eve as controlled parameters to study how each independently contributes to the total error rate and to verify that Eve’s presence increases QBER beyond what noise alone can explain.”
+
+| Real BB84           | Simulation BB84                 |
+| ------------------- | ------------------------------- |
+| Errors are observed | Errors are modeled              |
+| Cause is unknown    | Cause is known to the simulator |
+| Eve is hidden       | Eve is explicit                 |
+| Noise is physical   | Noise is a parameter            |
+
+
+
+photoelectic effect
+uncertainty
+Heisenberg's uncertainty principle
+wave nature of light
+partical nature of light
+
+classical Mecanics         Quantum mechanics
+Determinism  certainity    Randomness probability
+
+statement of Alber Einstein:
+God does not play dice.
+Is the mooon not there when i don't see it?
+
+at subatomic level electron have properites such as spin, polarization
+Neils Bohr: 
+state of particles is unknow and is unknowable until it was measured
+
+1964, Irish Physicist John Bell 
+
+Albert Einstein, Boris Podolsky, Nathan Rosen(EPR)
+Quantum mechanics predicts very stroong correlations between distant particles.
+ - these correlations caused by hidden information already inside the particles, or does nature behave in a fundamentally non-classical way 
+ Local = no faster-than-light influence
+Realistic = physical properties exist before measurement
+Quantum Entanglement(Spooky Action at distance)
+Hidden variable(things which we don't know)
+Quantum mechanics say that there is not any hidden varibles, it is an randomness
+
+CHSH inequality:
+Clauser–Horne–Shimony–Holt (CHSH)
+It is named after John Clauser, Michael Horne, Abner Shimony, and Richard Holt.
+
+The CHSH inequality is a mathematical test used to check whether correlations between two distant systems can be explained by classical physics (local hidden variables) or require quantum mechanics.
+
+Classical world: correlations are limited
+Quantum world: entanglement allows stronger correlations
+CHSH inequality: tells us which world we’re in
+The CHSH value is:
+
+In E91, Alice and Bob use the CHSH Bell inequality:
+𝑆=𝐸(𝐴,𝐵)+(𝐴,𝐵′)+𝐸(𝐴′,𝐵)−𝐸(𝐴′,𝐵′)
+
+E(A1,B1),E(A1,B3),E(A2,B1),E(A2,B3)
+(A1, B3)
+(A2, B1)
+(A2, B3)
+(A3, B1) (sometimes included)
+
+Classical (local realism):
+|s| <=2
+
+Quantum mechanics:
+∣S∣≤2√2≈2.828
+If S > 2, classical physics fails → quantum entanglement confirmed.
+
+
+
+Bell's theorem
+1972 
+
+Bell’s inequality is a mathematical test that tells us how strong correlations between two distant particles can be if the world were purely classical.
+E91
+Eve does not distrub the qubits since she measures in the basis of their preparation
+Eve also knows which bits to discard, Bob announces that publicly
+
+E91 use the fundamental property of quantum entanglement to securly generate shared cryptographic keys between two distant parteis.
+code idea:
+A source produces entangled Photon pairs(or other entangled qubits) and distributes them to Alice and bob
+Due to Entanglement, measurements performed by Alice and Bob in chosen bases are strongly corrleated.
+These correlations allow them to generate a shared random bit string, which can be processed in to a secrect key.
+Any eavedropper trying to intercept the particles will inevitably disturb the  correlations and this disturbance is detectable.
+
+working of E91
+ - Alice and Bob receive entangled particles
+ - measures them using random bases
+ - compare bases over a public channel
+ - use quantum correlations to generate a secret key while detecting any eavesdropper.
+
+-Two particles are entangled → their measurements are strongly correlated
+-Measuring one instantly determines the result of the other
+-No matter how far apart they are
+
+Why E91 Is Special
+
+Security is based on Bell’s inequality
+Any eavesdropper (Eve) breaks quantum correlations
+Alice and Bob can detect Eve without knowing what she did
+
+START
+  │
+  ▼
+Entangled Photon Pair Created
+  │
+  ├──► Photon → Alice
+  │
+  └──► Photon → Bob
+        │
+        ▼
+Alice Randomly Chooses Basis (A1/A2/A3)
+Bob Randomly Chooses Basis (B1/B2/B3)
+        │
+        ▼
+Alice Measures Photon → Result (+1 or −1)
+Bob Measures Photon   → Result (+1 or −1)
+        │
+        ▼
+Public Channel:
+Exchange BASIS only (Not results)
+        │
+        ▼
+Sort Data Based on Basis Pairs
+        │
+        ├──► Key Generation Set
+        │         │
+        │         ▼
+        │    Raw Key Bits
+        │
+        └──► Security Test Set
+                  │
+                  ▼
+          Bell Inequality Test
+                  │
+        ┌─────────┴─────────┐
+        │                   │
+        ▼                   ▼
+   Violation ✔         No Violation ✘
+        │                   │
+        ▼                   ▼
+ Final Secret Key      Abort Protocol
+        │
+        ▼
+END
+
+Note:
+E91 is conservative.
+It does not assume:“No violation means Eve exists.”
+Instead it says:“If we cannot certify security 
+
+Eavesdropper present ⇒ Bell inequality is NOT violated
+No eavesdropper ⇒ Bell inequality MAY or MAY NOT be violated
+
+Final, correct conclusion
+If an eavesdropper exists, then the Bell–CHSH value S≤2
+Local hidden variables are a classical explanation of correlations that assumes:
+
+
+Alice's Basis
+A1 = Z basis (0°)
+A2 = X basis (45°)
+A3 = Z basis (90°)
+
+Bob's Basis
+B1 = 22.5°
+B2 = 45° (X)
+B3 = 67.5°
+
+For the Φ⁺ Bell state, Alice and Bob obtain identical results only when measuring in the same basis. When different bases are used, the outcomes are probabilistic, with correlations depending on the angle between the bases; for large angle differences, Bob’s result becomes random relative to Alice’s.
+
+| Pair | Alice basis | Bob basis  | Alice result | Bob result |
+| ---- | ----------- | ---------- | ------------ | ---------- |
+| 1    | A1 (Z)      | B1 (22.5°) | 0            | 0          |k
+| 2    | A2 (X)      | B2 (X)     | 1            | 1          |k
+| 3    | A2 (X)      | B1 (22.5°) | 0            | 1          |
+| 4    | A3 (Z)      | B3 (67.5°) | 1            | 0          |
+| 5    | A1 (Z)      | B3 (67.5°) | 0            | random     |
+| 6    | A2 (X)      | B2 (X)     | 1            | 1          |k
+| 7    | A1 (Z)      | B1 (22.5°) | 1            | 1          |k
+| 8    | A3 (Z)      | B2 (X)     | 0            | random     |
+
+
+If Alice and Bob measure in the SAME basis, their results are the SAME.
+A1=B1, A2=B2 -same basis results always same
+Note: A1=B1 They are close, not equal
+other basis comibinations --> result not guaranteed
+probability of correlations depends on angle difference
+
+P(same result)=cos^2(Δθ)
+Alice = 0 AND Bob = 0
+OR
+Alice = 1 AND Bob = 1
+
+P(different result)=sin^2(Δθ)
+Alice = 0 AND Bob = 1
+OR
+Alice = 1 AND Bob = 0
+
+Δθ = angle difference between Alice's and Bob's bases
+
+| Angle difference Δθ | P(same) | Interpretation            |
+| ------------------- | ------- | ------------------------- |
+| 0°                  | 1       | Perfectly correlated      |
+| 22.5°               | ≈ 0.85  | Strongly correlated       |
+| **45°**             | **0.5** | **Completely random**     |
+| 67.5°               | ≈ 0.15  | Very weak correlation     |
+| 90°                 | 0       | Perfectly anti-correlated |
+
+Criteria for KEY GENERATION 
+1.Basis pair is pre-agreed as a key basis
+(A1, B1)
+(A2, B2)
+2.Deterministic bit correlation
+Same bit with probability ≈ 1
+A2,B2
+
+Criteria for BELL TEST: 
+1.Basis pair is incompatible
+ - Alice and Bob use different bases
+2.Basis pair is part of the CHSH set
+ - Bell inequality requires four specific combinations, e.g.:
+  (A1, B1)
+  (A1, B3)
+  (A2, B1)
+  (A2, B3)
+
+Note:
+Alice and Bob decide before the protocol starts which basis pairs are for key generation and which are for Bell testing.
+After measurement, they only classify each row according to that pre-decided rule, once the bases are publicly announced.
+
+Step 0: Pre-agreement (before any photons are sent)
+Alice and Bob agree on two things:
+
+(a) Allowed bases
+Alice: A1, A2, A3
+Bob: B1, B2, B3
+
+(b) Classification rule (VERY IMPORTANT)
+For example:
+
+Key bases → (A1,B1), (A2,B2)
+
+Bell-test bases → (A1,B3), (A2,B1), (A2,B3), (A3,B1), …
+
+
+Step 1: Entangled photons are generated
+Source sends one photon to Alice, one to Bob
+No bits exist yet
+
+Step 2: Measurement
+Alice and Bob randomly choose bases
+They measure and record:
+ - basis used
+ - result obtained
+
+At this moment:
+ - They do not know whether a row is key or Bell
+ - They do not communicate
+
+Step 3: Public announcement of bases (NOT results)
+Over a public channel, they announce only:
+ - “I used A2 on pair 5”
+ - “I used B1 on pair 5”
+
+Still:
+Results remain secret
+No decision yet per row
+
+Step 4: Row classification (using pre-decided rule)
+Now they look at each row:
+
+If basis pair ∈ key list → 🔑 key row
+If basis pair ∈ Bell list → 🔒 security row
+Otherwise → ❌ discard
+
+⚠️ This is classification, not decision-making.
+
+Before any photons are sent, Alice and Bob communicate over a classical channel and pre-agree on:
+ - Which measurement bases each of them may use
+ - Which pairs of bases are reserved for key generation
+ - Which pairs of bases are reserved for Bell-inequality (security) testing
+
+ Classical agreement first → Quantum transmission → Random measurement → Public basis announcement → Fixed classification
+
+ Role of Bell-CHSH value S and QBER in E91:
+ - In E91, the Bell–CHSH value 𝑆 decides whether a key may be generated
+ - the QBER decides how much secure key can be generated.
+
+ What S does in E91 (security certification)
+The Bell–CHSH parameterS:
+ Tests non-classical correlations
+ Certifies absence of local hidden variables
+ Bounds Eve’s information from first principles
+
+
+ Note:
+ Both environmental noise and an eavesdropper increase QBER and can lead to the absence of Bell-inequality violation; however, only an eavesdropper guarantees that the Bell inequality will not be violated, whereas noise may or may not destroy the violation depending on its strength.
+
+
+
+ *******************____b92_____**************
+
+ The B92 protocol is a quantum key distribution (QKD) protocol proposed in 1992 by Charles H. Bennett.
+ It is a simplified version of BB84, using only two non-orthogonal quantum states instead of four.
+ “Two quantum states are non-orthogonal if their inner product is non-zero, meaning they cannot be perfectly distinguished by any measurement. In B92, non-orthogonal states provide security against eavesdropping.”
+ 
+In quantum mechanics, two states are orthogonal if they can be perfectly distinguished by a measurement.
+
+Orthogonal states → inner product = 0
+
+Non-orthogonal states → inner product ≠ 0

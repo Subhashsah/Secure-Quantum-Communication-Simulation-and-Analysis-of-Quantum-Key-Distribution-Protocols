@@ -1,0 +1,196 @@
+E91 Quantum Key Distribution Protocol
+
+1. Overview of the E91 Protocol
+The E91 protocol is an entanglement-based Quantum Key Distribution (QKD) scheme proposed by Artur Ekert in 1991.
+Unlike prepare-and-measure protocols, E91 derives its security from quantum entanglement and the violation of Bell inequalities, rather than from disturbance alone.
+
+Two distant parties (commonly referred to as Alice and Bob) generate a shared secret key by measuring entangled photon pairs distributed by a source.
+Security is guaranteed by fundamental non-classical correlations, not by assumptions about the internal workings of devices.
+
+In this work, an E91 protocol simulation is implemented using entangled photon pairs, with security evaluated through:
+The Bell–CHSH parameter (S), and
+The Quantum Bit Error Rate (QBER)
+A configurable eavesdropper model is introduced to study how different attack strategies affect both metrics.
+
+2. Bell–CHSH Inequality as a Security Test
+2.1 CHSH Inequality
+The Clauser–Horne–Shimony–Holt (CHSH) inequality is a quantitative test that distinguishes classical (local realistic) correlations from quantum entanglement.
+
+The CHSH parameter is defined as:
+S=E(A1,B1)−E(A1,B3)+E(A2,B1)+E(A2,B3)
+where:
+E(Ai,Bj) denotes the expectation value of correlated measurement outcomes obtained using measurement settings Ai and 𝐵𝑗.
+
+2.2 Classical and Quantum Bounds
+Classical (local hidden variables):
+∣S∣≤2
+
+Quantum mechanics:
+∣S∣≤2√2≈2.828
+​
+A measured value of S>2 confirms non-classical correlations and certifies the presence of quantum entanglement.
+
+3. Measurement Settings in the Simulation
+To maximize Bell-inequality violation, Alice and Bob use carefully chosen polarization angles:
+
+Alice’s Bases
+A0: 0° (Key generation basis)
+𝐴1: 0°
+𝐴2: 45°
+
+Bob’s Bases
+𝐵0: 0° (Key generation basis)
+𝐵1: 22.5°
+𝐵3: 67.5°
+
+These angles are known to produce maximal CHSH violation for Bell states such as ∣Φ+⟩.
+
+Work flow diagram
+START
+  │
+  ▼
+Entangled Photon Pair Created
+  │
+  ├──► Photon → Alice
+  │
+  └──► Photon → Bob
+        │
+        ▼
+Alice Randomly Chooses Basis (A1/A2/A3)
+Bob Randomly Chooses Basis (B1/B2/B3)
+        │
+        ▼
+Alice Measures Photon → Result (+1 or −1)
+Bob Measures Photon   → Result (+1 or −1)
+        │
+        ▼
+Public Channel:
+Exchange BASIS only (Not results)
+        │
+        ▼
+Sort Data Based on Basis Pairs
+        │
+        ├──► Key Generation Set
+        │         │
+        │         ▼
+        │    Raw Key Bits
+        │
+        └──► Security Test Set
+                  │
+                  ▼
+          Bell Inequality Test
+                  │
+        ┌─────────┴─────────┐
+        │                   │
+        ▼                   ▼
+   Violation ✔         No Violation ✘
+        │                   │
+        ▼                   ▼
+ Final Secret Key      Abort Protocol
+        │
+        ▼
+END
+
+4. Working of the E91 Protocol
+Step 0: Classical Pre-Agreement
+    Before quantum transmission begins, Alice and Bob publicly agree on:
+    Allowed measurement bases
+    Basis pairs used for key generation
+    Basis pairs used for Bell-test (security) evaluation
+
+This classification is fixed and does not depend on observed results.
+
+Step 1: Entangled State Distribution
+A quantum source generates entangled photon pairs and distributes:
+    One photon to Alice
+    One photon to Bob
+
+No classical bits exist at this stage.
+
+Step 2: Measurement
+    Alice and Bob independently:
+    Randomly select a measurement basis
+    Measure their photon
+Record the basis and outcome (+1 or −1)
+
+Step 3: Public Basis Announcement
+Over a classical channel:
+    Only measurement bases are announced
+    Measurement outcomes remain secret
+
+Step 4: Data Classification
+Each measurement round is classified as:
+    🔑 Key-generation round
+    🔒 Bell-test round
+    ❌ Discarded
+
+This classification follows the pre-agreed rule, not adaptive decision-making.
+
+5. Role of the Eavesdropper Model (eve_mode)
+To analyze security under different attack strategies, the simulation introduces a configurable eavesdropper (Eve) through the parameter eve_mode.
+
+5.1 Eve Attack Modes
+| Eve Mode | Description                            |
+| -------- | -------------------------------------- |
+| `key`    | Eve attacks only key-generation rounds |
+| `bell`   | Eve attacks only Bell-test rounds      |
+| `both`   | Eve attacks both key and Bell rounds   |
+
+￼
+This design allows controlled experimentation on how Eve’s behavior impacts QBER and CHSH violation independently.
+
+6. Impact on CHSH Value (S)
+Bell-test rounds are exclusively responsible for calculating the CHSH parameter 𝑆
+
+If Eve attacks Bell rounds (eve_mode = "bell" or "both"):
+Entanglement is degraded
+Correlations weaken
+S decreases and eventually falls below the classical bound
+
+Eavesdropper present ⇒∣𝑆∣≤2
+When no Bell violation is observed, security cannot be certified, and the protocol is aborted.
+
+7. Impact on Quantum Bit Error Rate (QBER)
+QBER is computed from key-generation rounds only:
+
+QBER = Number of mismatched key bits/Total key bits
+
+    Eve attacking key rounds increases QBER
+    Noise and imperfections also increase QBER
+    High QBER reduces the amount of extractable secure key
+
+However, QBER alone does not certify security in E91.
+
+8. Complementary Roles of S and QBER
+| Parameter      | Function                        |
+| -------------- | ------------------------------- |
+| CHSH value (S) | Certifies quantum security      |
+| QBER           | Determines key quality and rate |
+
+In E91:
+
+Bell violation decides whether a key may be generated
+QBER decides how much secure key can be extracted
+
+This separation is a defining feature of entanglement-based QKD.
+
+9. Interpretation of Eve and Noise
+Eavesdropper present ⇒ Bell inequality is never violated
+Environmental noise ⇒ Bell violation may or may not survive
+
+Therefore, E91 is conservative:
+Security is accepted only when non-classical correlations are experimentally verified.
+
+10. Final Security Decision Rule
+The protocol accepts a key if and only if:
+∣S∣>2 (Bell violation confirmed), and
+
+QBER ≤ acceptable threshold
+Otherwise, the protocol is aborted.
+
+11. Conclusion
+The E91 protocol secures cryptographic key distribution using quantum entanglement and Bell–CHSH inequality violation. By separating security certification (via 𝑆) from key quality evaluation (via QBER), E91 provides a stronger and more fundamental security guarantee than classical or prepare-and-measure protocols.
+
+The introduced eve_mode parameter enables controlled analysis of adversarial behavior, allowing users to clearly observe how different attack strategies independently affect Bell violation and error rates, thereby deepening conceptual understanding of quantum security.
+
+
