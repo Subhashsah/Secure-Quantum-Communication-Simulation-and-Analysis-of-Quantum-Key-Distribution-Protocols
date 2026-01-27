@@ -1,0 +1,145 @@
+Foundations of Quantum Mechanics for Secure Communication
+1. Wave–Particle Duality of Light
+
+One of the earliest discoveries leading to quantum mechanics was the realization that light exhibits both wave-like and particle-like behavior.
+
+Wave nature of light explains phenomena such as interference and diffraction.
+
+Particle nature of light is demonstrated by the photoelectric effect, where light transfers energy in discrete packets called photons.
+
+This dual behavior contradicts classical physics and establishes the foundation for quantum theory.
+
+2. Photoelectric Effect
+
+The photoelectric effect demonstrates that light can eject electrons from a metal surface only if its frequency exceeds a threshold value.
+
+Key implications:
+
+Energy depends on frequency, not intensity
+Light consists of discrete quanta (photons)
+
+Classical wave theory fails to explain this phenomenon
+
+This discovery confirmed the quantized nature of electromagnetic radiation and laid the groundwork for quantum mechanics.
+
+3. Uncertainty and the Heisenberg Uncertainty Principle
+
+In quantum mechanics, certain physical quantities cannot be simultaneously known with arbitrary precision.
+
+Heisenberg’s Uncertainty Principle states:Δx⋅Δp≥2ℏ
+Where:
+Δx: uncertainty in position
+Δp: uncertainty in momentum
+
+This principle implies that uncertainty is fundamental, not due to experimental limitations.
+
+At the quantum level, nature is inherently probabilistic.
+
+4. Classical Mechanics vs Quantum Mechanics
+Classical Mechanics	Quantum Mechanics
+Deterministic	Probabilistic
+Predictable outcomes	Random outcomes
+Exact trajectories	Probability amplitudes
+Observer-independent	Measurement-dependent
+
+In classical physics, knowing initial conditions allows precise prediction.
+In quantum physics, only probabilities can be predicted.
+
+This distinction is crucial for understanding quantum cryptography.
+
+5. Philosophical Perspectives on Quantum Reality
+Albert Einstein
+
+Einstein famously objected to quantum randomness, stating:
+
+“God does not play dice.”
+“Is the Moon there when I do not look at it?”
+
+These statements reflect Einstein’s belief in an objective, deterministic reality independent of observation.
+
+Niels Bohr
+Bohr countered Einstein’s views with the Copenhagen Interpretation, asserting:
+The state of a quantum system is unknown and unknowable until it is measured.
+
+According to Bohr:
+Measurement plays a fundamental role
+Physical properties do not exist definitively before observation
+This view underpins modern quantum mechanics and quantum communication.
+
+6. Subatomic Properties of Particles
+At the subatomic level, particles such as electrons possess intrinsic quantum properties, including:
+Spin
+Polarization
+Quantum state superposition
+
+These properties are not classical attributes but arise from the mathematical structure of quantum theory and are exploited in QKD protocols.
+
+7. The EPR Paradox and Quantum Correlations
+
+In 1935, Albert Einstein, Boris Podolsky, and Nathan Rosen proposed the EPR paradox.
+They argued that:
+Quantum mechanics predicts strong correlations between distant particles
+These correlations suggest either:
+The existence of hidden variables, or
+A fundamentally non-classical reality
+
+They introduced two classical assumptions:
+Locality: No faster-than-light influence
+Realism: Physical properties exist prior to measurement
+
+Quantum mechanics appeared to violate one or both assumptions.
+
+8. Bell’s Theorem and Hidden Variables
+
+In 1964, John Bell formulated Bell’s Theorem, which provided a way to experimentally test whether local hidden variables could explain quantum correlations.
+
+Bell showed that:
+Any local realistic theory must satisfy certain inequalities
+Quantum mechanics predicts violations of these inequalities
+This result transformed philosophical debate into experimentally testable physics.
+
+9. Quantum Entanglement – “Spooky Action at a Distance”
+
+Quantum entanglement describes a phenomenon where:
+Two or more particles share a joint quantum state
+Measurement of one instantaneously affects the other, regardless of distance
+
+Einstein referred to this as:
+“Spooky action at a distance.”
+
+Entanglement is a core resource in E91 and BBM92 QKD protocols.
+
+10. CHSH Inequality
+The Clauser–Horne–Shimony–Holt (CHSH) inequality is a refined version of Bell’s inequality.
+Named after:
+John Clauser
+Michael Horne
+Abner Shimony
+Richard Holt
+
+Purpose of CHSH Inequality:
+To test whether observed correlations can be explained by classical local hidden variable theories
+Or whether quantum mechanics is required
+
+Key Insight:
+Violation of CHSH inequality confirms quantum entanglement
+Experiments consistently support quantum mechanics
+
+11. Relevance to Quantum Key Distribution
+
+Quantum mechanics asserts:
+There are no hidden variables
+Randomness is intrinsic to nature
+Measurement disturbs quantum states
+
+These principles ensure that:
+Any eavesdropping attempt introduces detectable disturbances
+Secure communication is guaranteed by physical laws
+Thus, quantum uncertainty, randomness, and entanglement form the backbone of Quantum Key Distribution.
+
+12. Summary
+Classical physics assumes certainty and determinism
+Quantum physics introduces probability and observer-dependence
+Experimental evidence rejects local hidden variables
+Quantum entanglement enables provably secure communication
+This theoretical foundation directly supports the security guarantees of QKD protocols such as BB84, B92, E91, and BBM92.

@@ -1,0 +1,127 @@
+1. Introduction
+The BBM92 protocol is an entanglement-based Quantum Key Distribution (QKD) protocol proposed in 1992 by Charles H. Bennett, Gilles Brassard, and N. David Mermin.
+
+BBM92 can be understood as the entanglement-based counterpart of BB84.
+While BB84 relies on a sender preparing and transmitting quantum states, BBM92 relies on pairs of entangled particles distributed to the communicating parties.
+
+2. Core Idea of BBM92
+Comparison with BB84
+
+BB84:
+Sender prepares single photons
+Security arises from measurement disturbance
+
+BBM92:
+A source prepares entangled photon pairs
+One photon is sent to Alice, the other to Bob
+Security arises from entanglement correlations
+
+The key insight of BBM92 is that neither Alice nor Bob needs to trust the source, as security is verified through correlation statistics.
+
+3. Quantum States and Measurement Bases
+3.1 Entangled State
+The source typically generates a maximally entangled Bell state, such as:
+
+∣Φ+⟩=(∣00⟩+∣11⟩)/√2
+
+This state ensures strong correlations when measured in the same basis.
+
+3.2 Measurement Bases
+Both Alice and Bob randomly choose between two mutually unbiased bases:
+Z basis (rectilinear / computational):
+∣0⟩,∣1⟩
+
+X basis (diagonal):
+∣+⟩,∣−⟩
+
+These are the same bases used in BB84, ensuring conceptual continuity.
+
+4. Working Principle of the BBM92 Protocol
+
+Step 1: Entangled Photon Generation
+A quantum source produces pairs of entangled photons
+    One photon is sent to Alice
+    The other photon is sent to Bob
+    At this stage, no classical bits exist.
+
+Step 2: Random Basis Selection
+
+    Alice randomly selects either the Z or X basis
+    Bob independently selects either the Z or X basis
+    This randomness is essential for security.
+
+Step 3: Quantum Measurement
+Alice measures her photon in the chosen basis
+Bob measures his photon in the chosen basis
+
+Due to entanglement:
+If bases match → results are strongly correlated
+If bases differ → outcomes are random
+
+Step 4: Basis Reconciliation (Classical Channel)
+Alice and Bob publicly announce only the measurement bases
+Measurement outcomes remain secret
+Rounds where bases do not match are discarded
+
+Step 5: Raw Key Generation
+
+Remaining correlated measurement outcomes form the raw key
+These bits are identical in the absence of noise and attacks
+
+5. Eavesdropping Detection Using QBER
+5.1 Quantum Bit Error Rate (QBER)
+
+The Quantum Bit Error Rate (QBER) is computed by publicly comparing a randomly selected subset of the raw key:
+
+QBER=Total compared bits/Number of mismatched bits
+	​
+
+5.2 Security Criterion
+
+QBER ≈ 0:
+Strong entanglement correlations
+
+Channel considered secure
+QBER > threshold:
+
+Correlations degraded
+Presence of noise or eavesdropping suspected
+Protocol is aborted
+
+An eavesdropper attempting to intercept or measure the entangled photons inevitably disturbs the correlations, increasing QBER.
+
+6. Error Correction and Privacy Amplification
+If QBER is below the acceptable threshold:
+    Error correction is applied to reconcile residual mismatches
+    Privacy amplification is performed to reduce any partial information potentially gained by an eavesdropper
+    A final secure secret key is obtained
+
+7. Security Characteristics of BBM92
+Security relies on quantum entanglement
+Measurement disturbance reveals eavesdropping
+Equivalent security to BB84 under ideal conditions
+Conceptually simpler than E91 (no Bell-test required)
+
+BBM92 can be viewed as a bridge between BB84 and E91:
+Like BB84 → uses basis matching and QBER
+Like E91 → uses entangled states
+
+8. BBM92 vs BB84 vs E91 (Conceptual Positioning)
+| Protocol | Photon Source      | Security Test              |
+| -------- | ------------------ | -------------------------- |
+| BB84     | Prepared by sender | QBER                       |
+| BBM92    | Entangled source   | QBER                       |
+| E91      | Entangled source   | Bell–CHSH violation + QBER |
+
+9. Advantages and Limitations
+Advantages
+Eliminates need for trusted state preparation
+Naturally suited for entanglement-based systems
+Strong conceptual foundation
+
+Limitations
+Requires reliable entangled photon sources
+Does not directly certify non-locality (unlike E91)
+
+10. Conclusion
+The BBM92 protocol extends the principles of BB84 into an entanglement-based framework, combining the simplicity of basis reconciliation with the physical security advantages of quantum entanglement. By relying on QBER to detect disturbances in correlated measurements, BBM92 enables secure key generation while reducing assumptions about the sender’s state preparation. This makes BBM92 a conceptually important and practically relevant protocol in quantum cryptography.

@@ -296,6 +296,21 @@
   transform: translateY(-2px);
 }
 
+.b92-btn {
+  border-color: #00d4ff;
+  color: #00d4ff;
+}
+
+.b92-btn::before {
+  background: rgba(0, 212, 255, 0.2);
+}
+
+.b92-btn:hover {
+  background: rgba(0, 212, 255, 0.2);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.5), inset 0 0 20px rgba(0, 212, 255, 0.2);
+  transform: translateY(-2px);
+}
+
 .e91-btn {
   border-color: #64ff64;
   color: #64ff64;

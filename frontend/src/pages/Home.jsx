@@ -8,8 +8,13 @@ function Home() {
   const handleProtocolSelect = (protocol) => {
     if (protocol === 'BB84') {
       navigate('/bb84')
+    } else if (protocol === 'E91') {
+      navigate('/e91')
+    } else if (protocol === 'BBM92') {
+      navigate('/bbm92')
+    } else if (protocol === 'B92') {
+      navigate('/b92')
     }
-    // E91 and B94 pages coming soon
   }
 
   return (
@@ -59,18 +64,22 @@ function Home() {
               BB84 Protocol
             </button>
             <button
-              className="protocol-btn e91-btn disabled"
-              disabled
-              title="Coming Soon"
+              className="protocol-btn b92-btn"
+              onClick={() => handleProtocolSelect('B92')}
+            >
+              B92 Protocol
+            </button>
+            <button
+              className="protocol-btn e91-btn"
+              onClick={() => handleProtocolSelect('E91')}
             >
               E91 Protocol
             </button>
             <button
-              className="protocol-btn b94-btn disabled"
-              disabled
-              title="Coming Soon"
+              className="protocol-btn b94-btn"
+              onClick={() => handleProtocolSelect('BBM92')}
             >
-              B94 Protocol
+              BBM92 Protocol
             </button>
           </div>
         </div>
