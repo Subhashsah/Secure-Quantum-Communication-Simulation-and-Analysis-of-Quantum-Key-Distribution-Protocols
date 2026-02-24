@@ -112,7 +112,7 @@ def simulate_b92(n, noise_prob, eve_prob, seed=None):
 # -----------------------------
 if __name__ == "__main__":
     # PARAMETERS (you can change)
-    N = 500
+    N = 20000
     noise_prob = 0.00
     eve_prob = 0.0
     

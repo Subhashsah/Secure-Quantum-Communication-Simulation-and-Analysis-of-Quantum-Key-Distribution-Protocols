@@ -5,7 +5,7 @@ import "../styles/B92.css";
 
 export default function B92() {
   const navigate = useNavigate();
-  const [bits, setBits] = useState(100);
+  const [bits, setBits] = useState(1000);
   const [noise, setNoise] = useState(0.0);
   const [eve, setEve] = useState(0.0);
   const [result, setResult] = useState(null);
@@ -24,7 +24,7 @@ export default function B92() {
   };
 
   const handleReset = () => {
-    setBits(100);
+    setBits(1000);
     setNoise(0.0);
     setEve(0.0);
     setResult(null);
@@ -78,9 +78,9 @@ export default function B92() {
                 <input
                   id="bits"
                   type="range"
-                  min="10"
-                  max="1000"
-                  step="10"
+                  min="1000"
+                  max="50000"
+                  step="1000"
                   value={bits}
                   onChange={(e) => setBits(parseInt(e.target.value))}
                   className="slider"
@@ -88,8 +88,8 @@ export default function B92() {
                 <div className="input-numeric">
                   <input
                     type="number"
-                    min="10"
-                    max="1000"
+                    min="1000"
+                    max="50000"
                     value={bits}
                     onChange={(e) => setBits(parseInt(e.target.value) || 10)}
                     className="numeric-input"
@@ -252,10 +252,14 @@ export default function B92() {
                 </div>
                 <p className="indicator-text">
                   {result.qber < 0.11
-                    ? "Channel is Secure"
-                    : result.qber < 0.15
-                    ? "Channel Compromised"
-                    : "Critical Alert"}
+                    // ? "Channel is Secure"
+                    // : result.qber < 0.15
+                    // ? "Channel Compromised"
+                    // : "Critical Alert"}
+                       ? "Secure Communication"
+                       : result.qber < 0.15
+                       ? "Security Warning"
+                       : "Security Breach Detected"}
                 </p>
               </div>
             </div>

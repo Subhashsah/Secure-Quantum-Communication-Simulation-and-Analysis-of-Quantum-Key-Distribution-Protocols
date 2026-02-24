@@ -5,10 +5,128 @@
   position: relative;
   overflow: hidden;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: white;
+}
+
+/* Navigation Bar */
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(135deg, rgba(10, 14, 39, 0.95) 0%, rgba(26, 31, 77, 0.95) 100%);
+  border-bottom: 1px solid rgba(100, 200, 255, 0.2);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.logo-section:hover {
+  background: rgba(100, 200, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.qkd-logo {
+  width: 48px;
+  height: 48px;
+  display: block;
+  filter: drop-shadow(0 0 8px rgba(100, 200, 255, 0.4));
+  transition: all 0.3s ease;
+}
+
+.logo-section:hover .qkd-logo {
+  filter: drop-shadow(0 0 15px rgba(100, 200, 255, 0.7));
+}
+
+.logo-text {
+  font-size: 1.3em;
+  font-weight: 700;
+  background: linear-gradient(135deg, #64c8ff 0%, #00d4ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.about-nav-btn {
+  background: transparent;
+  border: 2px solid rgba(100, 200, 255, 0.5);
+  color: #64c8ff;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.about-nav-btn:hover {
+  background: rgba(100, 200, 255, 0.15);
+  border-color: #64c8ff;
+  box-shadow: 0 0 15px rgba(100, 200, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.about-nav-btn:active {
+  transform: translateY(0);
+}
+
+/* About Navigation Button (Legacy) */
+.about-nav-button {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  z-index: 100;
+  background: transparent;
+  border: 2px solid rgba(100, 200, 255, 0.5);
+  color: #64c8ff;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  letter-spacing: 0.5px;
+}
+
+.about-nav-button:hover {
+  background: rgba(100, 200, 255, 0.15);
+  border-color: #64c8ff;
+  box-shadow: 0 0 20px rgba(100, 200, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.about-nav-button:active {
+  transform: translateY(0);
 }
 
 /* Starfield Background */
@@ -164,7 +282,7 @@
   position: relative;
   z-index: 10;
   text-align: center;
-  margin-top: 200px;
+  margin-top: 80px;
 }
 
 .header {
@@ -343,6 +461,13 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .about-nav-button {
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
   .bloch-sphere {
     width: 200px;
     height: 200px;
@@ -395,4 +520,35 @@
     padding: 12px 30px;
     font-size: 0.95rem;
   }
+
+  .navbar {
+    height: 70px;
+  }
+
+  .navbar-content {
+    padding: 0 20px;
+  }
+
+  .logo-section {
+    gap: 8px;
+  }
+
+  .qkd-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logo-text {
+    font-size: 1.1em;
+  }
+
+  .about-nav-btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  .content {
+    margin-top: 60px;
+  }
 }
+

@@ -197,6 +197,8 @@ export default function E91() {
                   onChange={(e) => setEveMode(e.target.value)}
                   className="dropdown-select"
                 >
+                  
+                  <option value="none">None</option>
                   <option value="both">Both (Key + Bell)</option>
                   <option value="key">Key Generation Only</option>
                   <option value="bell">Bell Test Only</option>
@@ -279,6 +281,8 @@ export default function E91() {
                 <p className="indicator-text">
                   {result.S > 2 && result.QBER < 0.11
                     ? "✓ Secure key established"
+                    : result.S >2 && result.QBER < 0.15
+                    ? "Channel Compromised"
                     : result.S <= 2
                     ? "✗ Abort: No Bell violation"
                     : result.QBER > 0.11

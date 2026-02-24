@@ -1,0 +1,39 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1f4d;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="quantumGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#64c8ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <rect width="64" height="64" fill="url(#bgGrad)"/>
+  
+  <!-- Quantum Lock Symbol -->
+  <!-- Two entangled photons -->
+  <circle cx="20" cy="22" r="6" fill="url(#quantumGrad)" filter="url(#glow)"/>
+  <circle cx="44" cy="42" r="6" fill="url(#quantumGrad)" filter="url(#glow)"/>
+  
+  <!-- Connection line (quantum entanglement) -->
+  <path d="M 26 28 Q 32 35 38 36" stroke="#00d4ff" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.8"/>
+  
+  <!-- Lock hasp -->
+  <path d="M 18 35 Q 18 28 32 28 Q 46 28 46 35" stroke="url(#quantumGrad)" stroke-width="2.5" fill="none" stroke-linecap="round" filter="url(#glow)"/>
+  
+  <!-- Lock base -->
+  <rect x="20" y="38" width="24" height="14" rx="2" fill="none" stroke="url(#quantumGrad)" stroke-width="2" filter="url(#glow)"/>
+  
+  <!-- Keyhole -->
+  <circle cx="32" cy="45" r="2" fill="#64c8ff" filter="url(#glow)"/>
+</svg>

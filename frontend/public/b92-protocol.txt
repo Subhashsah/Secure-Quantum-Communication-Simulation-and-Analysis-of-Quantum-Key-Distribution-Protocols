@@ -1,0 +1,146 @@
+B92 Quantum Key Distribution Protocol
+
+1. Introduction
+
+The B92 protocol, proposed by Charles Bennett in 1992, is a simplified variant of quantum key distribution that uses only two non-orthogonal quantum states instead of four. This protocol offers a more efficient approach than BB84 while maintaining strong security guarantees through quantum mechanical principles.
+
+2. Key Differences from BB84
+
+2.1 Reduced Quantum States
+Unlike BB84 which uses 4 states across 2 bases, B92 uses only 2 non-orthogonal states:
+- State |0⟩ (horizontal)
+- State |+⟩ (45° diagonal)
+
+2.2 POVM Measurements
+B92 employs Positive Operator-Valued Measure (POVM) detection instead of basis selection.
+Bob uses POVM tests with states:
+- |V⟩ (vertical)
+- |−⟩ (135° diagonal)
+
+2.3 No Basis Announcement Required
+Unlike BB84, the B92 protocol does not require public basis announcement, simplifying the post-processing phase.
+
+3. Protocol Steps
+
+3.1 Step 1: Alice's State Preparation
+Alice generates a random bit sequence and encodes each bit using non-orthogonal states:
+- Bit 0 → |0⟩ (horizontal polarization)
+- Bit 1 → |+⟩ (45° diagonal polarization)
+
+3.2 Step 2: Quantum Transmission
+Alice transmits the encoded qubits through the quantum channel.
+
+3.3 Step 3: Bob's POVM Measurement
+Bob performs a two-outcome POVM measurement on each received qubit using test states:
+- |V⟩ (vertical)
+- |−⟩ (135° diagonal)
+
+The measurement yields:
+- Click event: detector responds (conclusive detection)
+- No click: detector silent (inconclusive)
+
+3.4 Step 4: Key Sifting
+Only measurement events with detector clicks are kept (conclusive detections).
+For each click event:
+- If Bob measured with |V⟩: infer bit value 1
+- If Bob measured with |−⟩: infer bit value 0
+
+3.5 Step 5: Error Analysis
+Alice and Bob publicly compare a subset of conclusive results to estimate QBER.
+Anomalously high QBER indicates eavesdropping.
+
+4. Quantum Mechanics Behind B92
+
+4.1 Non-Orthogonal States
+The states |0⟩ and |+⟩ are non-orthogonal with overlap:
+⟨0|+⟩ = 1/√2 ≈ 0.707
+
+This non-orthogonality is crucial for security.
+
+4.2 POVM Detection
+The measurement outcomes depend on quantum probabilities:
+- P(click|0⟩ measured with |V⟩) = |⟨V|0⟩|² = 0
+- P(click|+⟩ measured with |V⟩) = |⟨V|+⟩|² = 1/2
+
+4.3 Information-Disturbance Tradeoff
+Eve's attempt to extract information necessitates measurement, which disturbs the quantum states.
+This disturbance is detectable through increased QBER.
+
+5. Security Analysis
+
+5.1 Eavesdropping Detection
+If Eve intercepts and measures the qubits:
+- She must guess the correct POVM test (50% chance)
+- Wrong measurements collapse states and introduce errors
+- Errors are detectable in the QBER analysis
+
+5.2 Eve's Limitations
+Eve cannot:
+- Copy the quantum state (no-cloning theorem)
+- Measure without disturbing
+- Know which measurement was correct without error analysis
+
+5.3 Theoretical QBER Bounds
+Without eavesdropping: QBER ≤ 3-5% (with environmental noise)
+With eavesdropping: QBER ≈ 25% or higher
+
+6. Advantages of B92
+
+6.1 Simplified State Set
+Uses only 2 quantum states vs. 4 in BB84
+Reduces complexity in state preparation
+
+6.2 Efficient Key Sifting
+No basis announcement required
+Direct inference from measurement outcomes
+
+6.3 Theoretical Efficiency
+Approximately 50% of qubits result in conclusive detections (theoretical limit)
+Potential higher key generation rate than BB84
+
+6.4 POVM Detection Advantages
+POVM provides more information than traditional basis measurement
+Enhanced eavesdropping detection capability
+
+7. Limitations
+
+7.1 Lower Conclusive Detection Rate
+Only half the qubits produce conclusive detections in ideal conditions
+Requires more transmitted qubits for equivalent key length
+
+7.2 State Preparation Difficulty
+Non-orthogonal states require precise quantum state engineering
+More challenging than BB84's orthogonal states
+
+7.3 Detector Sensitivity
+Requires highly sensitive single-photon detectors
+POVM implementation demands sophisticated measurement apparatus
+
+8. Comparison with BB84
+
+Aspect | BB84 | B92
+---|---|---
+Quantum States | 4 | 2
+Bases | 2 | POVM (implicit)
+Conclusive Rate | 25% | ~50% (theoretical)
+State Complexity | Orthogonal | Non-orthogonal
+Key Rate | Moderate | Higher (fewer transmissions)
+Implementation | Straightforward | Complex
+
+9. Practical Implementation Challenges
+
+9.1 State Preparation
+Generating precisely-prepared non-orthogonal states
+Maintaining coherence through transmission
+
+9.2 Detector Configuration
+Implementing efficient POVM detection
+Achieving high single-photon detection efficiency
+
+9.3 Environmental Factors
+Quantum channel noise
+Temperature and electromagnetic interference
+
+10. Conclusion
+
+The B92 protocol demonstrates how quantum cryptography can be optimized through careful use of quantum state properties. While offering theoretical advantages over BB84, practical implementation remains challenging. The protocol exemplifies the principle that information security can be fundamentally guaranteed by quantum mechanics when non-orthogonal states are properly exploited.

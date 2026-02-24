@@ -1,0 +1,90 @@
+BB84 Quantum Key Distribution Protocol
+
+1. Introduction
+
+The BB84 protocol, named after its inventors Charles Bennett and Gilles Brassard (1984), is the first practical quantum key distribution protocol. It enables two parties, traditionally called Alice and Bob, to establish a shared secret key over a quantum channel while detecting any eavesdropping by a third party (Eve).
+
+2. Fundamental Principles
+
+2.1 Quantum Bits (Qubits)
+In BB84, information is encoded in quantum states of photons using two conjugate bases:
+- The Rectilinear (Z) Basis: |0⟩ (horizontal) and |1⟩ (vertical)
+- The Diagonal (X) Basis: |+⟩ (45°) and |−⟩ (135°)
+
+These bases are mutually unbiased, meaning that measuring a state prepared in one basis with the other basis yields random results.
+
+2.2 The No-Cloning Theorem
+The quantum no-cloning theorem states that it is impossible to create an identical copy of an unknown quantum state. This fundamental principle guarantees that any eavesdropping attempt will necessarily disturb the quantum transmission.
+
+3. Protocol Steps
+
+3.1 Step 1: Qubit Preparation
+Alice generates a random sequence of bits (the secret key bits) and a random sequence of bases (Z or X basis).
+For each bit, Alice prepares a qubit in the corresponding state:
+- Bit 0 in Z-basis → |0⟩
+- Bit 1 in Z-basis → |1⟩
+- Bit 0 in X-basis → |+⟩
+- Bit 1 in X-basis → |−⟩
+
+3.2 Step 2: Quantum Transmission
+Alice sends the prepared qubits to Bob through a quantum channel.
+
+3.3 Step 3: Qubit Measurement
+Bob receives the qubits and randomly chooses a basis (Z or X) for each qubit.
+Bob measures each qubit in his chosen basis and records the measurement result (0 or 1).
+
+3.4 Step 4: Basis Reconciliation
+Alice and Bob publicly announce the bases they used for each qubit (but NOT the measurement results).
+They keep only the bits where they used the same basis (the "sifted key").
+
+3.5 Step 5: Eavesdropping Detection
+Alice and Bob publicly compare a subset of their sifted key bits to estimate the Quantum Bit Error Rate (QBER).
+If QBER is significantly higher than expected (typically > 11%), eavesdropping is detected and the protocol is aborted.
+
+4. Security Analysis
+
+4.1 Why BB84 is Secure
+1. Alice and Bob only announce bases, not measurement results
+2. Eve cannot measure in the correct basis without this information
+3. If Eve measures in the wrong basis, she has a 50% chance of getting the wrong result
+4. Her wrong measurement collapses the quantum state, introducing detectable errors
+
+4.2 Eve's Dilemma
+If Eve intercepts the qubits:
+- She must guess the measurement basis (50% chance of guessing correctly)
+- If she guesses wrong, her measurement will likely produce errors
+- These errors are detectable when Alice and Bob compare results
+
+4.3 QBER Threshold
+Theoretical QBER without eavesdropping (with noise): ~3-5%
+Theoretical QBER with eavesdropping: ~25%
+
+5. Practical Considerations
+
+5.1 Channel Noise
+In realistic implementations, quantum channels introduce noise that causes errors even without eavesdropping.
+The protocol must account for this by setting an acceptable QBER threshold.
+
+5.2 Single Photon Source
+BB84 requires the ability to reliably produce and measure single photons.
+
+5.3 Distance Limitations
+Quantum signals degrade over distance, limiting practical transmission distances.
+
+6. Advantages
+
+- Theoretically unconditionally secure (proven by quantum mechanics)
+- Practical implementation is relatively straightforward
+- Robust against various attacks
+- Widely studied and understood
+
+7. Limitations
+
+- Requires quantum resources (single photon sources and detectors)
+- Limited transmission distance
+- Vulnerable to photon number splitting attacks (in implementations)
+- Key generation rate is relatively low
+
+8. Conclusion
+
+The BB84 protocol represents a milestone in quantum cryptography, proving that quantum mechanics can provide unconditional security. While practical implementations face challenges, BB84 demonstrates the fundamental feasibility of quantum key distribution and has inspired numerous subsequent protocols.

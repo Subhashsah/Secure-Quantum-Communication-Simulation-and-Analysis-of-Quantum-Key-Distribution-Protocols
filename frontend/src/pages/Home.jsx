@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/Home.css'
+import QKDLogo from '../assets/qkd-logo.svg'
 
 function Home() {
   const navigate = useNavigate()
@@ -19,6 +20,19 @@ function Home() {
 
   return (
     <div className="home-container">
+      {/* Navigation Bar */}
+      <nav className="navbar">
+        <div className="navbar-content">
+          <div className="logo-section" onClick={() => navigate('/')}>
+            <img src={QKDLogo} alt="QKD Logo" className="qkd-logo" />
+            <span className="logo-text">QKD Simulator</span>
+          </div>
+          <button className="about-nav-btn" onClick={() => navigate('/about')}>
+            About
+          </button>
+        </div>
+      </nav>
+
       {/* Starfield Background */}
       <div className="starfield">
         {Array.from({ length: 100 }).map((_, i) => (
@@ -75,12 +89,12 @@ function Home() {
             >
               E91 Protocol
             </button>
-            <button
+            {/* <button
               className="protocol-btn b94-btn"
               onClick={() => handleProtocolSelect('BBM92')}
             >
               BBM92 Protocol
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
