@@ -42,8 +42,8 @@ def bell_circuit(theta_A, theta_B, eve_attack=False):
         qc.reset(0)
         qc.reset(1)
 
-    qc.ry(-2 * theta_A, 0)
-    qc.ry(-2 * theta_B, 1)
+    qc.ry(2 * theta_A, 0)
+    qc.ry(2 * theta_B, 1)
 
     qc.measure(0, 0)
     qc.measure(1, 1)
@@ -184,3 +184,4 @@ if __name__ == "__main__":
         bell_ratio=0.25,
         eve_mode="none"
     )
+

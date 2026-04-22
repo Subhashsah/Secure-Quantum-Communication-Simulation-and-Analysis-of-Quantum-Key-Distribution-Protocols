@@ -22,7 +22,7 @@ The advent of quantum computing poses a significant threat to classical public-k
 The following QKD protocols were selected to represent diverse quantum communication paradigms:
 
 BB84 and B92 (prepare-and-measure protocols)
-E91 and BBM92 (entanglement-based protocols)
+E91 (entanglement-based protocols)
 
 4.2 Quantum State Simulation
 Quantum bits (qubits) are simulated using polarization or abstract quantum states. Random bit sequences and measurement bases are generated to model realistic quantum transmission behavior.
@@ -51,7 +51,7 @@ Qubit: The fundamental unit of quantum information capable of superposition.
 
 Superposition: A quantum property allowing a qubit to exist in multiple states simultaneously.
 
-Entanglement: A quantum phenomenon in which particles exhibit correlated behavior regardless of separation distance.
+Quantum Entanglement: A quantum entanglement is the phenomenon where two or more  qubits are correlated in a such way that their quantum state cannot be described  independently
 
 Eavesdropping: Unauthorized interception of communication, detectable in QKD due to quantum measurement disturbances.
 

@@ -8,7 +8,7 @@ bit 1 ---> |1> , Vertical ()
 
 X-Basis (Diagonal)
 Bit 0 ---> |+> , 45
-Bit 0 ---> |-> , 135
+Bit 1 ---> |-> , 135
 
 Note: only bits where alice and bob usue the same bases are kept is shifted key
 - if Bob's bits is differ from alice original bit, after neglecting(bases which is not matching) is counted as an error
@@ -45,7 +45,7 @@ Determinism  certainity    Randomness probability
 
 statement of Alber Einstein:
 God does not play dice.
-Is the mooon not there when i don't see it?
+Is the moon not there when i don't see it?
 
 at subatomic level electron have properites such as spin, polarization
 Neils Bohr: 

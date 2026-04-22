@@ -128,7 +128,7 @@ simulationProject/
    ```bash
    python -m venv .venv
    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   pip install flask flask-cors numpy
+   pip install -no-cache -r requirements.txt
    ```
 
 3. **Setup Frontend**
