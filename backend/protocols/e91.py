@@ -77,6 +77,21 @@ def simulate_e91(
     bell_used = 0
     key_used  = 0
 
+    bell_circuit_cache = {}
+    for A, B in bell_pairs:
+        for eve_attack in (False, True):
+            circuit = bell_circuit(
+                alice_angles[A],
+                bob_angles[B],
+                eve_attack=eve_attack,
+            )
+            bell_circuit_cache[(A, B, eve_attack)] = transpile(circuit, sim)
+
+    key_circuit = transpile(
+        bell_circuit(alice_angles["A0"], bob_angles["B0"], eve_attack=False),
+        sim,
+    )
+
     # ================= Bell test =================
     for (A, B) in bell_pairs:
         for _ in range(bell_per_setting):
@@ -86,14 +101,8 @@ def simulate_e91(
                 and np.random.rand() < eve_prob
             )
 
-            qc = bell_circuit(
-                alice_angles[A],
-                bob_angles[B],
-                eve_attack=eve_here
-            )
-
-            tqc = transpile(qc, sim)
-            result = sim.run(tqc, shots=shots_per_circuit).result()
+            circuit = bell_circuit_cache[(A, B, eve_here)]
+            result = sim.run(circuit, shots=shots_per_circuit).result()
             counts = result.get_counts()
 
             E = 0
@@ -110,14 +119,7 @@ def simulate_e91(
 
     # ================= Key generation (unchanged) =================
     for _ in range(total_key_pairs):
-        qc = bell_circuit(
-            alice_angles["A0"],
-            bob_angles["B0"],
-            eve_attack=False
-        )
-
-        tqc = transpile(qc, sim)
-        result = sim.run(tqc, shots=1).result()
+        result = sim.run(key_circuit, shots=1).result()
         bitstring = list(result.get_counts().keys())[0]
 
         a = 1 if bitstring[1] == '0' else -1
@@ -143,26 +145,6 @@ def simulate_e91(
     E23 = E(("A2","B3"))
 
     S = abs(E11 - E13 + E21 + E23)
-
-    # ================= OUTPUT =================
-    print("\n====== E91 FINAL RESULTS ======")
-    print(f"Total pairs generated : {total_pairs}")
-    print(f"Bell-test pairs used  : {bell_used}")
-    print(f"Key-generation pairs  : {key_used}")
-    print(f"Eve probability       : {eve_prob}")
-    print(f"Eve mode              : {eve_mode}")
-    print(f"Noise probability     : {noise_prob}")
-    print(f"Bell ratio            : {bell_ratio}")
-
-    print(f"\nCHSH S = {S:.3f}")
-    print(f"QBER   = {qber*100:.2f}%")
-
-    if S <= 2:
-        print("✘ Abort: No Bell violation")
-    elif qber > 0.11:
-        print("✘ Abort: QBER too high")
-    else:
-        print("✔ Secure key established")
 
     return {
         "S": S,

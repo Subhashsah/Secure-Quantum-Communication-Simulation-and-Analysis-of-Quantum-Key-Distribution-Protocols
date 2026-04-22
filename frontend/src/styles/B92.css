@@ -4,7 +4,7 @@
   min-height: 100vh;
   background: linear-gradient(135deg, #0a1427 0%, #1a2f4d 50%, #0f1a2e 100%);
   color: white;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   position: relative;
   overflow-x: hidden;
 }
@@ -31,8 +31,27 @@
   box-shadow: 0 0 10px rgba(100, 200, 255, 0.6);
 }
 
+.nav {
+  display: flex;
+  /* justify-self: center; */
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.nav-btn {
+  background-color: rgb(21, 160, 240);
+  font-size: 24px;
+  font-weight: bolder;
+  padding: 10px 29px 10px 29px;
+  text-align: center;
+  border-radius: 20px;
+  color: white;
+}
+
 @keyframes twinkle {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0;
   }
   50% {
@@ -91,8 +110,8 @@
 .b92-subtitle {
   margin: 0;
   color: rgba(200, 200, 200, 0.7);
-  font-size: 1rem;
-  font-weight: 300;
+  font-size: 1.5rem;
+  font-weight:normal;
 }
 
 /* Main Content */
@@ -117,10 +136,18 @@
 .simulation-panel {
   background: rgba(15, 25, 50, 0.7);
   backdrop-filter: blur(10px);
-  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   padding: 30px;
   border: 1px solid rgba(100, 200, 255, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  width: 70%;
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  transform: translate(-50%, -10%);
+  border-radius: 20px;
 }
 
 .section-title {
@@ -135,6 +162,7 @@
 /* Control Section */
 .control-section {
   margin-bottom: 30px;
+ 
 }
 
 .controls-grid {
@@ -382,7 +410,9 @@
 
 .indicator-fill {
   height: 100%;
-  transition: width 0.5s ease, background-color 0.5s ease;
+  transition:
+    width 0.5s ease,
+    background-color 0.5s ease;
   border-radius: 15px;
   box-shadow: 0 0 20px currentColor;
 }
@@ -406,7 +436,7 @@
   backdrop-filter: blur(10px);
   border: 1px solid rgba(100, 200, 255, 0.2);
   border-radius: 12px;
-  padding: 25px;
+  padding: 30px;
   transition: all 0.3s ease;
 }
 
@@ -416,7 +446,7 @@
 }
 
 .info-title {
-  font-size: 1.3rem;
+  font-size: 2rem;
   margin: 0 0 15px 0;
   color: #64c8ff;
   font-weight: 600;
@@ -430,27 +460,11 @@
 }
 
 .info-list {
-  list-style: none;
+  list-style:decimal;
   padding: 0;
   margin: 0;
 }
 
-.info-list li {
-  padding: 8px 0;
-  padding-left: 25px;
-  position: relative;
-  color: rgba(200, 200, 200, 0.8);
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-
-.info-list li::before {
-  content: "→";
-  position: absolute;
-  left: 0;
-  color: #64c8ff;
-  font-weight: bold;
-}
 
 .info-definitions {
   margin: 0;

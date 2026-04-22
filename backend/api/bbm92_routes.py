@@ -4,6 +4,27 @@ from protocols.bbm92 import simulate_bbm92
 bbm92_api = Blueprint("bbm92_api", __name__)
 
 
+@bbm92_api.get("/")
+def bbm92_home():
+    return jsonify(
+        {
+            "protocol": "BBM92",
+            "message": "Use POST /api/bbm92/simulate with JSON body: {bits, noise, eve}",
+        }
+    )
+
+
+@bbm92_api.get("/simulate")
+def bbm92_simulate_info():
+    return jsonify(
+        {
+            "method": "POST",
+            "endpoint": "/api/bbm92/simulate",
+            "body": {"bits": 1000, "noise": 0.0, "eve": 0.0},
+        }
+    )
+
+
 @bbm92_api.route("/simulate", methods=["POST"])
 def simulate():
     """
