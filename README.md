@@ -6,13 +6,14 @@ A comprehensive, interactive educational platform for simulating and understandi
 
 This platform demonstrates the principles of quantum mechanics in cryptography through interactive simulations of quantum key distribution protocols. Users can explore how quantum states are used to establish secure communication channels that are theoretically impossible to eavesdrop on without detection.
 
+The project combines a **React + Tailwind CSS frontend** with a **Python Flask backend** powered by **IBM Qiskit** for accurate quantum simulations.
+
 ## Features
 
 ### 🔐 Quantum Protocols Implemented
 - **BB84 Protocol** - The original prepare-and-measure quantum key distribution protocol with real-time simulation and measurement outcomes
 - **B92 Protocol** - A two-state QKD protocol using non-orthogonal quantum states with efficiency analysis
 - **E91 Protocol** - An entanglement-based QKD protocol with Bell inequality testing for eavesdropping detection
-- **BBM92 Protocol** - An entanglement variant of the BB84 protocol
 
 ### 🎨 Interactive Visualization
 - **Working Principle Animation** - Step-by-step interactive animation showing the complete BB84 protocol with 5 detailed stages
@@ -37,17 +38,19 @@ This platform demonstrates the principles of quantum mechanics in cryptography t
 ## Technologies Used
 
 ### Frontend
-- **React 18** - UI framework with functional components and hooks
-- **React Router** - Client-side routing for multi-page navigation
-- **CSS3** - Custom styling with gradients, animations, and responsive design
+- **React 19** - UI framework with functional components and hooks
+- **React Router DOM** - Client-side routing for multi-page navigation
+- **Tailwind CSS** - Utility-first CSS framework for responsive styling
 - **Vite** - Fast build tool and development server
-- **SVG** - Custom graphics for QKD logo and favicon
+- **ESLint** - Code quality and linting
 
 ### Backend
 - **Python 3.x** - Core simulation engine
 - **Flask** - Lightweight REST API server
 - **Flask-CORS** - Cross-origin resource sharing for React frontend
-- **NumPy** - Quantum state calculations and numerical simulations
+- **IBM Qiskit 2.3** - Quantum computing framework for accurate quantum simulations
+- **NumPy 2.4** - Numerical operations and quantum state calculations
+- **SciPy** - Scientific computing utilities
 
 ## Project Structure
 
@@ -60,53 +63,60 @@ simulationProject/
 │   │   │   ├── BB84.jsx              # BB84 simulation interface
 │   │   │   ├── B92.jsx               # B92 simulation interface
 │   │   │   ├── E91.jsx               # E91 simulation interface
-│   │   │   ├── BBM92.jsx             # BBM92 simulation interface
 │   │   │   ├── About.jsx             # Project overview page
-│   │   │   ├── BB84Page.jsx          # BB84 with animation + documentation
-│   │   │   ├── B92Article.jsx        # B92 protocol documentation
-│   │   │   └── E91Article.jsx        # E91 protocol documentation
+│   │   │   └── simulation/           # Simulation component pages
+│   │   │       ├── B92.jsx           # B92 simulation
+│   │   │       ├── BB84.jsx          # BB84 simulation
+│   │   │       └── E91.jsx           # E91 simulation
 │   │   ├── Components/
-│   │   │   ├── BB84Animation.jsx     # Interactive BB84 protocol animation
-│   │   │   └── ProtocolArticle.jsx   # Reusable protocol documentation
-│   │   ├── styles/                   # CSS styling
-│   │   │   ├── Home.css              # Landing page + navbar styles
-│   │   │   ├── BB84.css              # BB84 UI styles
-│   │   │   ├── B92.css               # B92 UI styles
-│   │   │   ├── E91.css               # E91 UI styles
-│   │   │   ├── BB84Animation.css     # Animation component styles
-│   │   │   ├── About.css             # About page styles
-│   │   │   └── ProtocolArticle.css   # Protocol documentation styles
+│   │   │   ├── articles/
+│   │   │   │   ├── B92.jsx           # B92 protocol documentation
+│   │   │   │   ├── BB84.jsx          # BB84 protocol documentation
+│   │   │   │   ├── E91.jsx           # E91 protocol documentation
+│   │   │   │   └── ProtocolArticle.jsx # Reusable documentation component
 │   │   ├── api/                      # API integration
-│   │   │   ├── bb84.jsx              # BB84 API wrapper
 │   │   │   ├── b92.jsx               # B92 API wrapper
-│   │   │   ├── e91.jsx               # E91 API wrapper
-│   │   │   └── bbm92.jsx             # BBM92 API wrapper
-│   │   ├── assets/                   # Static assets
-│   │   │   └── qkd-logo.svg          # QKD logo for navbar
+│   │   │   ├── bb84.jsx              # BB84 API wrapper
+│   │   │   └── e91.jsx               # E91 API wrapper
+│   │   ├── styles/                   # CSS styling
+│   │   │   ├── Home.css
+│   │   │   ├── About.css
+│   │   │   ├── B92.css
+│   │   │   ├── BB84.css
+│   │   │   ├── E91.css
+│   │   │   ├── ProtocolArticle.css
 │   │   ├── App.jsx                   # Main router configuration
+│   │   ├── index.css                 # Global styles
 │   │   └── main.jsx                  # React entry point
 │   ├── public/
-│   │   ├── favicon.svg               # QKD favicon
-│   │   ├── about.txt                 # About page content
-│   │   ├── bb84-protocol.txt         # BB84 documentation
+│   │   ├── about.json                # About page content
 │   │   ├── b92-protocol.txt          # B92 documentation
-│   │   └── e91-protocol.txt          # E91 documentation
+│   │   ├── bb84-protocol.txt         # BB84 documentation
+│   │   ├── e91-protocol.txt          # E91 documentation
+│   │   └── image/                    # Assets and images
 │   ├── index.html                    # HTML entry point
 │   ├── package.json                  # npm dependencies
-│   └── vite.config.js                # Vite configuration
+│   ├── vite.config.js                # Vite configuration
+│   ├── eslint.config.js              # ESLint configuration
+│   └── README.md                     # Frontend documentation
 │
-└── backend/                           # Flask API server
-    ├── app.py                        # Flask application setup
-    ├── protocols/
-    │   ├── bb84.py                   # BB84 quantum simulation
-    │   ├── b92.py                    # B92 quantum simulation
-    │   ├── e91.py                    # E91 quantum simulation
-    │   └── bbm92.py                  # BBM92 quantum simulation
-    └── api/
-        ├── bb84_routes.py            # BB84 REST endpoints
-        ├── b92_routes.py             # B92 REST endpoints
-        ├── e91_routes.py             # E91 REST endpoints
-        └── bbm92_routes.py           # BBM92 REST endpoints
+├── backend/                           # Flask API server
+│   ├── app.py                        # Flask application setup
+│   ├── protocols/                    # Quantum protocol implementations
+│   │   ├── b92.py                    # B92 quantum simulation
+│   │   ├── bb84.py                   # BB84 quantum simulation
+│   │   ├── e91.py                    # E91 quantum simulation
+│   │   └── __pycache__/
+│   └── api/                          # REST API routes
+│       ├── b92_routes.py             # B92 endpoints
+│       ├── bb84_routes.py            # BB84 endpoints
+│       ├── e91_routes.py             # E91 endpoints
+│       └── __pycache__/
+│
+├── requirements.txt                  # Python dependencies
+├── README.md                         # This file
+├── note.txt                          # Development notes
+└── about.txt                         # About project info
 ```
 
 ## Getting Started
@@ -126,9 +136,9 @@ simulationProject/
 
 2. **Setup Backend**
    ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   pip install -no-cache -r requirements.txt
+   python -m venv .sim
+   source .sim/bin/activate  # On Windows: .sim\Scripts\activate
+   pip install -r requirements.txt
    ```
 
 3. **Setup Frontend**
@@ -141,12 +151,14 @@ simulationProject/
 
 **Terminal 1 - Backend Server:**
 ```bash
+source .sim/bin/activate
 python backend/app.py
 ```
 The API will be available at `http://localhost:5000`
 
 **Terminal 2 - Frontend Development Server:**
 ```bash
+source .sim/bin/activate
 cd frontend
 npm run dev
 ```
@@ -227,26 +239,24 @@ This platform is designed for:
 ## Design Philosophy
 
 - **Interactive Learning** - Hands-on exploration rather than passive reading
-- **Visual Communication** - Complex quantum concepts made accessible through animation
-- **Academic Rigor** - Mathematically accurate simulations with proper quantum mechanics
-- **Clean Aesthetics** - Professional design that supports learning without distraction
-- **Responsive Design** - Works seamlessly across devices
+- **Visual Communication** - Complex quantum concepts made accessible through simulations
+- **Academic Rigor** - Quantum simulations powered by IBM Qiskit for accuracy
+- **Clean Design** - Professional interface using Tailwind CSS
+- **Responsive Design** - Optimized for desktop and mobile devices
 
 ## Color Scheme
 
-The application uses a quantum-themed color palette:
-- **Primary Blue**: `#64c8ff` - Cyan photons
-- **Secondary Blue**: `#00d4ff` - Quantum operations
-- **Success Green**: `#64ff64` - Correct measurements
-- **Warning Orange**: `#ff8888` - Errors/mismatches
-- **Dark Background**: `#0a0e27` to `#1a1f4d` - Dark space metaphor
+The application uses a professional color palette with quantum-inspired aesthetics:
+- **Primary Colors** - Blues and cyans for quantum operations
+- **Accent Colors** - Greens for success, oranges/reds for errors
+- **Dark Theme** - Easy on the eyes for extended studying
 
 ## Performance Considerations
 
-- Frontend optimized with React hooks and lazy loading
-- Backend calculations use NumPy for efficient quantum state math
-- Simulations handle up to 10,000 qubits per protocol run
-- Responsive UI with smooth 60fps animations
+- Frontend optimized with React 19 hooks and lazy loading
+- Backend uses Qiskit quantum simulators for accurate quantum computations
+- Handles simulations with configurable qubit counts
+- Responsive UI with Tailwind CSS
 
 ## Future Enhancements
 
@@ -289,8 +299,8 @@ For questions, suggestions, or issues:
 
 ---
 
-**Last Updated:** January 2026
+**Last Updated:** April 2026
 
 **Status:** Actively Maintained ✨
 
-Experience the future of quantum cryptography through interactive simulation!
+Experience the future of quantum cryptography through interactive simulation and learn quantum computing with IBM Qiskit!
