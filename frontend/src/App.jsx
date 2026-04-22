@@ -1,14 +1,13 @@
-import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from './pages/Home'
-import BB84 from './pages/BB84'
-import E91 from './pages/E91'
-import BBM92 from './pages/BBM92'
-import B92 from './pages/B92'
-import About from './pages/About'
-import BB84Page from './pages/BB84Page'
-import B92Article from './pages/B92Article'
-import E91Article from './pages/E91Article'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import BB84 from "./pages/BB84";
+import E91 from "./pages/E91";
+import B92 from "./pages/B92";
+import About from "./pages/About";
+import B92Simulation from "./pages/simulation/B92";
+import E91Simulation from "./pages/simulation/E91";
+import BB84Simulation from "./pages/simulation/BB84";
 
 function App() {
   return (
@@ -17,15 +16,14 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/bb84" element={<BB84 />} />
         <Route path="/e91" element={<E91 />} />
-        <Route path="/bbm92" element={<BBM92 />} />
         <Route path="/b92" element={<B92 />} />
         <Route path="/about" element={<About />} />
-        <Route path="/protocol/BB84" element={<BB84Page />} />
-        <Route path="/protocol/B92" element={<B92Article />} />
-        <Route path="/protocol/E91" element={<E91Article />} />
+        <Route path="/bb84_simulation" element={<BB84Simulation />} />
+        <Route path="/b92_simulation" element={<B92Simulation />} />
+        <Route path="/e91_simulation" element={<E91Simulation />} />
       </Routes>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

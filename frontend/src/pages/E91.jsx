@@ -1,45 +1,8 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { runE91 } from "../api/e91";
 import "../styles/E91.css";
 
 export default function E91() {
   const navigate = useNavigate();
-  const [totalPairs, setTotalPairs] = useState(1000);
-  const [noiseProb, setNoiseProb] = useState(0.0);
-  const [eveProb, setEveProb] = useState(0.0);
-  const [bellRatio, setBellRatio] = useState(0.2);
-  const [eveMode, setEveMode] = useState("both");
-  const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  const handleRun = async () => {
-    setLoading(true);
-    try {
-      const data = await runE91({
-        total_pairs: totalPairs,
-        noise_prob: noiseProb,
-        eve_prob: eveProb,
-        bell_ratio: bellRatio,
-        eve_mode: eveMode,
-      });
-      setResult(data);
-    } catch (error) {
-      console.error("Simulation error:", error);
-      alert("Error running simulation: " + error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleReset = () => {
-    setTotalPairs(1000);
-    setNoiseProb(0.0);
-    setEveProb(0.0);
-    setBellRatio(0.2);
-    setEveMode("both");
-    setResult(null);
-  };
 
   return (
     <div className="e91-container">
@@ -69,261 +32,219 @@ export default function E91() {
         </div>
       </header>
 
-      <div className="e91-content">
-        <div className="simulation-panel">
-          <div className="control-section">
-            <h2 className="section-title">Simulation Parameters</h2>
-            <div className="controls-grid">
-              <div className="control-group">
-                <label htmlFor="pairs" className="control-label">
-                  <span className="label-text">Total Pairs</span>
-                  <span className="label-value">{totalPairs}</span>
-                </label>
-                <input
-                  id="pairs"
-                  type="range"
-                  min="50"
-                  max="20000"
-                  step="50"
-                  value={totalPairs}
-                  onChange={(e) => setTotalPairs(parseInt(e.target.value, 10))}
-                  className="slider"
-                />
-                <div className="input-numeric">
-                  <input
-                    type="number"
-                    min="50"
-                    max="20000"
-                    step="50"
-                    value={totalPairs}
-                    onChange={(e) => setTotalPairs(parseInt(e.target.value || 50, 10))}
-                    className="numeric-input"
-                  />
-                </div>
-              </div>
-
-              <div className="control-group">
-                <label htmlFor="noise" className="control-label">
-                  <span className="label-text">Noise Probability</span>
-                  <span className="label-value">{noiseProb.toFixed(2)}</span>
-                </label>
-                <input
-                  id="noise"
-                  type="range"
-                  min="0"
-                  max="1"
-                  step="0.01"
-                  value={noiseProb}
-                  onChange={(e) => setNoiseProb(parseFloat(e.target.value))}
-                  className="slider"
-                />
-                <div className="input-numeric">
-                  <input
-                    type="number"
-                    min="0"
-                    max="1"
-                    step="0.01"
-                    value={noiseProb}
-                    onChange={(e) => setNoiseProb(parseFloat(e.target.value) || 0)}
-                    className="numeric-input"
-                  />
-                </div>
-              </div>
-
-              <div className="control-group">
-                <label htmlFor="eve" className="control-label">
-                  <span className="label-text">Eve Probability</span>
-                  <span className="label-value">{eveProb.toFixed(2)}</span>
-                </label>
-                <input
-                  id="eve"
-                  type="range"
-                  min="0"
-                  max="1"
-                  step="0.01"
-                  value={eveProb}
-                  onChange={(e) => setEveProb(parseFloat(e.target.value))}
-                  className="slider"
-                />
-                <div className="input-numeric">
-                  <input
-                    type="number"
-                    min="0"
-                    max="1"
-                    step="0.01"
-                    value={eveProb}
-                    onChange={(e) => setEveProb(parseFloat(e.target.value) || 0)}
-                    className="numeric-input"
-                  />
-                </div>
-              </div>
-
-              <div className="control-group">
-                <label htmlFor="bell" className="control-label">
-                  <span className="label-text">Bell Test Ratio</span>
-                  <span className="label-value">{bellRatio.toFixed(2)}</span>
-                </label>
-                <input
-                  id="bell"
-                  type="range"
-                  min="0.05"
-                  max="0.95"
-                  step="0.01"
-                  value={bellRatio}
-                  onChange={(e) => setBellRatio(parseFloat(e.target.value))}
-                  className="slider"
-                />
-                <div className="input-numeric">
-                  <input
-                    type="number"
-                    min="0.05"
-                    max="0.95"
-                    step="0.01"
-                    value={bellRatio}
-                    onChange={(e) => setBellRatio(parseFloat(e.target.value) || 0.2)}
-                    className="numeric-input"
-                  />
-                </div>
-              </div>
-
-              <div className="control-group">
-                <label htmlFor="eveMode" className="control-label">
-                  <span className="label-text">Eve Attack Mode</span>
-                  <span className="label-value">{eveMode}</span>
-                </label>
-                <select
-                  id="eveMode"
-                  value={eveMode}
-                  onChange={(e) => setEveMode(e.target.value)}
-                  className="dropdown-select"
-                >
-                  
-                  <option value="none">None</option>
-                  <option value="both">Both (Key + Bell)</option>
-                  <option value="key">Key Generation Only</option>
-                  <option value="bell">Bell Test Only</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="button-group">
-              <button onClick={handleRun} disabled={loading} className="btn btn-primary">
-                {loading ? "Running..." : "Run Simulation"}
-              </button>
-              <button onClick={handleReset} className="btn btn-secondary">
-                Reset
-              </button>
-            </div>
-          </div>
-
-          {result && (
-            <div className="results-section">
-              <h2 className="section-title">Simulation Results</h2>
-              <div className="results-grid">
-                <div className="result-card">
-                  <div className="result-icon">📡</div>
-                  <div className="result-content">
-                    <p className="result-label">CHSH S Value</p>
-                    <p className="result-value">{result.S?.toFixed(3)}</p>
-                    <p className="result-description">
-                      {result.S > 2 ? "✓ Bell violation detected" : "✗ No violation"}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="result-card">
-                  <div className="result-icon">🔐</div>
-                  <div className="result-content">
-                    <p className="result-label">QBER</p>
-                    <p className="result-value">{(result.QBER * 100).toFixed(2)}%</p>
-                    <p className="result-description">
-                      {result.QBER < 0.11 ? "✓ Secure channel" : "✗ Potential eavesdropping"}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="result-card">
-                  <div className="result-icon">⚠️</div>
-                  <div className="result-content">
-                    <p className="result-label">Bit Errors</p>
-                    <p className="result-value">{result.errors}</p>
-                    <p className="result-description">Mismatches detected</p>
-                  </div>
-                </div>
-
-                <div className="result-card">
-                  <div className="result-icon">🕵️</div>
-                  <div className="result-content">
-                    <p className="result-label">Eve Mode</p>
-                    <p className="result-value">{result.eve_mode}</p>
-                    <p className="result-description">
-                      {result.eve_mode === "both" ? "Key + Bell attacks" : result.eve_mode === "key" ? "Key generation attacks" : "Bell test attacks"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="security-indicator">
-                <div className="indicator-bar">
-                  <div
-                    className="indicator-fill"
-                    style={{
-                      width: `${Math.max(0, Math.min(100, (0.25 - result.QBER) * 400))}%`,
-                      backgroundColor:
-                        result.QBER < 0.11
-                          ? "#00ff88"
-                          : result.QBER < 0.15
-                          ? "#ffaa00"
-                          : "#ff0055",
-                    }}
-                  ></div>
-                </div>
-                <p className="indicator-text">
-                  {result.S > 2 && result.QBER < 0.11
-                    ? "✓ Secure key established"
-                    : result.S >2 && result.QBER < 0.15
-                    ? "Channel Compromised"
-                    : result.S <= 2
-                    ? "✗ Abort: No Bell violation"
-                    : result.QBER > 0.11
-                    ? "✗ Abort: QBER too high"
-                    : "Status unclear"}
-                </p>
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="info-panel">
-          <div className="info-card">
-            <h3 className="info-title">About E91</h3>
-            <p className="info-text">
-              The E91 protocol leverages entangled photon pairs and Bell inequality tests to ensure
-              secure key distribution. A high CHSH S value greater then 2 confirms entanglement and helps detect
-              eavesdropping.
+            {/* Information Panel */}
+      <div className="info-panel">
+        <div className="info-card">
+          <h3 className="info-title">About B92</h3>
+          <div className="flex flex-col gap-5">
+            <p className="text-[1.5rem]">
+              The E91 protocol is an entanglement-based Quantum Key Distribution (QKD) method proposed by Artur Ekert in 1991. It enables two distant parties (Sender and Receiver) to generate a secure shared cryptographic key using the principles of quantum entanglement.
+            </p>
+            <p className="text-[1.5rem]">
+              Unlike BB84 and B92 protocols, E91 does not rely solely on disturbance detection. Instead, its security is fundamentally guaranteed by the violation of Bell inequalities, which confirms the presence of genuine quantum correlations that cannot be explained by classical physics. 
+            </p>
+            <p className="text-[1.5rem]">
+              The E91 protocol operates by distributing entangled photon pairs between two parties. Each party independently measures their photon using randomly chosen measurement bases.
             </p>
           </div>
+        </div>
 
-          <div className="info-card">
-            <h3 className="info-title">Parameters</h3>
-            <dl className="info-definitions">
-              <dt>Total Pairs</dt>
-              <dd>Number of entangled pairs distributed.</dd>
-              <dt>Noise Probability</dt>
-              <dd>Depolarizing noise level in the channel.</dd>
-              <dt>Eve Probability</dt>
-              <dd>Chance of intercept-resend attack.</dd>
-              <dt>Bell Ratio</dt>
-              <dd>Fraction of pairs used for CHSH Bell test.</dd>
-              <dt>Eve Attack Mode</dt>
-              <dd>
-                <strong>Both:</strong> Eve attacks key generation and Bell test rounds.<br/>
-                <strong>Key:</strong> Eve attacks only key-generation rounds.<br/>
-                <strong>Bell:</strong> Eve attacks only Bell-test rounds.
-              </dd>
-            </dl>
+        <div className="info-card ">
+          <h3 className="info-title">How It Works</h3>
+
+          <div className="flex justify-between gap-10 relative">
+            <div className="w-full lg:flex-1 relative ">
+              <div className="relative flex flex-col gap-7 text-[1.8rem]">
+                {" "}
+                 <div>
+                   <p className="font-normal text-[1.5rem]">
+                    The protocol works through the following core process:
+                  </p>{" "}
+                  <ul className="flex flex-col gap-1 list-disc ml-8 relative left-10 text-[1.5rem]">
+                    {" "}
+                    <li>A quantum source generates entangled photon pairs and sends one photon to each party. </li>
+                    <li>Both Sender and Receiver randomly choose measurement bases and record outcomes. </li>
+                    <li>They publicly share only their measurement bases (not outcomes). </li>
+                    <li>
+                      <dl>
+                        <dt>The collected data is divided into: </dt>
+                        <dd><span className = "font-bold">Key-generation rounds</span> (used to form the secret key) </dd>
+                        <dd><span className = "font-bold">Bell-test rounds </span> (used to verify security)  </dd>
+                  
+                      </dl>{" "}
+                    </li>{" "}
+                  </ul>{" "}
+                 </div>
+                 <p className = "block text-[1.5rem]">
+                  Security is verified using the Bell–CHSH inequality, which measures the strength of quantum correlations. If the measured value exceeds the classical bound, it confirms the presence of entanglement and guarantees security.
+                 </p>
+                 <div>
+                  <p className = "block text-[1.5rem]">Additionally, the Quantum Bit Error Rate (QBER) is used to evaluate the quality of the generated key. The protocol proceeds only if:</p>
+                  <ul className="flex flex-col gap-1 list-disc ml-8 relative left-10 text-[1.5rem]">
+                    {" "}
+                    <li>Bell inequality is violated (|S| > 2), and  </li>
+                    <li>QBER is below an acceptable threshold. </li>
+                  </ul>{" "}
+                 </div>
+                 <p className = "block text-[1.5rem]">If these conditions are not met, the protocol is aborted to ensure security. </p>
+              </div>
+            </div>
+            <div className="flex-[1r] h-full sticky top-5">
+              <img
+                src="image/E91.png"
+                alt="B92"
+                className="mx-auto w-full max-w-2xl rounded-lg object-contain lg:mx-0"
+              />
+            </div>
           </div>
         </div>
+
+        <div className="info-card">
+          <h3 className="info-title">Key Features</h3>
+          <div className="flex justify-between  ml-10 ">
+            <div className="w-full lg:flex-1 relative left-10">
+              <ul className="list-disc relative flex flex-col gap-7 text-[1.8rem]">
+                {" "}
+                <li>
+                  {" "}
+                  <dl>                  
+                    <dt className="font-bold text-[1.8rem]">
+                    Uses Two Bases and Four Quantum States
+                    </dt>{" "}
+                    <dd className="text-[1.5rem] ">
+                    {" "}
+                    Security is derived from quantum entanglement rather than simple disturbance detection. 
+                    </dd>{" "}
+                    </dl>
+                </li>{" "}
+                <li>
+                  {" "}
+                                   <dl>                  
+                    <dt className="font-bold text-[1.8rem]">
+                    Bell Inequality Verification (CHSH Test)
+                    </dt>{" "}
+                    <dd className="text-[1.5rem] ">
+                    {" "}
+                    Uses Bell–CHSH inequality to certify true quantum correlations and detect eavesdropping. 
+                    </dd>{" "}
+                    </dl>{" "}
+                </li>{" "}
+                 <li>
+                  {" "}
+                  <dl>                  
+                    <dt className="font-bold text-[1.8rem]">
+                    Device-Independent Security Foundation
+                    </dt>{" "}
+                    <dd className="text-[1.5rem] ">
+                    {" "}
+                    Security does not rely heavily on trusting the internal workings of devices. 
+                    </dd>{" "}
+                    </dl>{" "}
+                </li>{" "}
+                 <li>
+                  {" "}
+                  <dl>                  
+                    <dt className="font-bold text-[1.8rem]">
+                    Separation of Security and Key Quality 
+                    </dt>{" "}
+                    <dd className="text-[1.5rem] ">
+                    {" "}
+                    <ul className="flex flex-col gap-1 list-disc ml-8 relative left-10 text-[1.5rem]">
+                      <li>CHSH value (S) → certifies security </li>
+                      <li>QBER → determines key quality and rate </li>
+                    </ul>
+                    </dd>{" "}
+                    </dl>{" "}
+                </li>{" "}
+                 <li>
+                  {" "}
+                  <dl>                  
+                    <dt className="font-bold text-[1.8rem]">
+                    Use of Bell States
+                    </dt>{" "}
+                    <dd className="text-[1.5rem] ">
+                    {" "}
+                    Employs maximally entangled states (e.g., Φ⁺) for strong quantum correlations. 
+                    </dd>{" "}
+                    </dl>{" "}
+                </li>{" "}
+                 <li>
+                  {" "}
+                  <dl>                  
+                    <dt className="font-bold text-[1.8rem]">
+                    Bell-Test Fraction (Bell Ratio)
+                    </dt>{" "}
+                    <dd className="text-[1.5rem] ">
+                    {" "}
+                    A portion of photon pairs is sacrificed to verify security, ensuring robustness against attacks. 
+                    </dd>{" "}
+                    </dl>{" "}
+                </li>{" "}
+                 <li>
+                  {" "}
+                  <dl>                  
+                    <dt className="font-bold text-[1.8rem]">
+                    Eavesdropper Detection (Eve Model)
+                    </dt>{" "}
+                    <dd className="text-[1.5rem] ">
+                    {" "}
+                    Detects eavesdropping through: 
+                    </dd>{" "}
+                    <ul className="flex flex-col gap-1 list-disc ml-8 relative left-10 text-[1.5rem]">
+                      <li>Reduction in CHSH value (loss of entanglement) </li>
+                      <li>Increase in QBER  </li>
+                    </ul>
+                    </dl>{" "}
+                </li>{" "}
+                 <li>
+                  {" "}
+                  <dl>                  
+                    <dt className="font-bold text-[1.8rem]">
+                    Random Measurement Bases
+                    </dt>{" "}
+                    <dd className="text-[1.5rem] ">
+                    {" "}
+                    Sender and Receiver independently choose bases, ensuring unpredictability.  
+                    </dd>{" "}
+                    </dl>{" "}
+                </li>{" "}
+                 <li>
+                  {" "}
+                  <dl>                  
+                    <dt className="font-bold text-[1.8rem]">
+                    Protocol Abort Mechanism
+                    </dt>{" "}
+                    <dd className="text-[1.5rem] ">
+                    {" "}
+                    Automatically aborts if: 
+                    </dd>{" "}
+                    <ul className="flex flex-col gap-1 list-disc ml-8 relative left-10 text-[1.5rem]">
+                      <li>No Bell violation is observed, or  </li>
+                      <li>Error rate exceeds acceptable limits  </li>
+                    </ul>
+                    </dl>{" "}
+                </li>{" "}
+                 <li>
+                  {" "}
+                  <dl>                  
+                    <dt className="font-bold text-[1.8rem]">
+                    Physics-Based Security Guarantee
+                    </dt>{" "}
+                    <dd className="text-[1.5rem] ">
+                    {" "}
+                    Security is guaranteed by fundamental quantum mechanics, not computational assumptions.
+                    </dd>{" "}
+                    </dl>{" "}
+                </li>{" "}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="nav">
+        <button className="nav-btn" onClick={() => navigate("/e91_simulation")}>
+          View E91 Simulation
+        </button>
       </div>
     </div>
   );

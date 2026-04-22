@@ -37,10 +37,23 @@ def build_depolarizing_noise(p):
 
 # ------------------ SINGLE MEASUREMENT ------------------
 
-def run_shot(qc, sim, seed):
-    tqc = transpile(qc, sim, seed_transpiler=seed)
-    result = sim.run(tqc, shots=1).result()
-    return int(list(result.get_counts().keys())[0])
+def run_shot(transpiled_qc, sim):
+    result = sim.run(transpiled_qc, shots=1).result()
+    bitstring = next(iter(result.get_counts()))
+    return int(bitstring)
+
+
+def build_measurement_cache(sim, seed=None):
+    cache = {}
+    for bit in (0, 1):
+        for prep_basis in (0, 1):
+            for meas_basis in (0, 1):
+                qc = prepare_bb84_qubit(bit, prep_basis)
+                qc = measure_in_basis(qc, meas_basis)
+                cache[(bit, prep_basis, meas_basis)] = transpile(
+                    qc, sim, seed_transpiler=seed
+                )
+    return cache
 
 
 # ------------------ BB84 SIMULATION ------------------
@@ -66,22 +79,26 @@ def simulate_bb84(n, depolar_prob, eve_prob, seed=None):
         seed_simulator=seed
     )
 
+    measurement_cache = build_measurement_cache(sim, seed=seed)
+
     sifted = 0
     errors = 0
 
     for i in range(n):
-        qc = prepare_bb84_qubit(alice_bits[i], alice_bases[i])
+        current_bit = alice_bits[i]
+        current_basis = alice_bases[i]
 
         # Eve intercept-resend attack
         if random.random() < eve_prob:
             eve_basis = random.randint(0, 1)
-            qc_eve = measure_in_basis(qc.copy(), eve_basis)
-            eve_bit = run_shot(qc_eve, sim, seed)
-            qc = prepare_bb84_qubit(eve_bit, eve_basis)
+            eve_qc = measurement_cache[(current_bit, current_basis, eve_basis)]
+            eve_bit = run_shot(eve_qc, sim)
+            current_bit = eve_bit
+            current_basis = eve_basis
 
         # Bob measurement
-        qc_bob = measure_in_basis(qc.copy(), bob_bases[i])
-        bob_bit = run_shot(qc_bob, sim, seed)
+        bob_qc = measurement_cache[(current_bit, current_basis, bob_bases[i])]
+        bob_bit = run_shot(bob_qc, sim)
 
         # Basis reconciliation
         if alice_bases[i] == bob_bases[i]:
