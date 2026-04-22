@@ -260,7 +260,7 @@ export default function BB84() {
                   <dl className="text-[1.5rem] ">
                     <dt>Security is verified using QBER</dt>
                     <dd >If QBER ≤ 11% → secure key generation</dd>
-                    <dd >If QBER > 11% → communication is aborted</dd>
+                    <dd >If QBER &gt; 11% → communication is aborted</dd>
                   </dl>{" "}
                 </li>{" "}
                  <li>

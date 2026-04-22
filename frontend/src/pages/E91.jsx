@@ -82,7 +82,7 @@ export default function E91() {
                   <p className = "block text-[1.5rem]">Additionally, the Quantum Bit Error Rate (QBER) is used to evaluate the quality of the generated key. The protocol proceeds only if:</p>
                   <ul className="flex flex-col gap-1 list-disc ml-8 relative left-10 text-[1.5rem]">
                     {" "}
-                    <li>Bell inequality is violated (|S| > 2), and  </li>
+                    <li>Bell inequality is violated (|S| &gt; 2), and  </li>
                     <li>QBER is below an acceptable threshold. </li>
                   </ul>{" "}
                  </div>
